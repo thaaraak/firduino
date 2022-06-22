@@ -42,6 +42,7 @@ class FIRConverter : public BaseConverter<T> {
     this->channels = 2;
     this->direction = 1;
     this->gain = 1;
+    this->correction = 1;
 
     float* delayLeft = (float*)calloc( firLen, sizeof(float) );
     float* delayRight = (float*)calloc( firLen, sizeof(float) );
