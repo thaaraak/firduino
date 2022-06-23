@@ -1,4 +1,4 @@
-# firduino - Arduino FIR Library using ESP-DSP FIR Assembler
+# firduino - Arduino FIR Library using ESP-DSP FIR Implementation
 
 This library uses the [Arduino Audio Tools](https://github.com/pschatzmann/arduino-audio-tools) library and implements a BaseConverter subclass that accepts convolution coefficients for left and right channel.
 
