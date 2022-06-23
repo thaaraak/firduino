@@ -1,6 +1,8 @@
 # firduino - Arduino FIR Library using ESP-DSP FIR Implementation
 
-This library uses the [Arduino Audio Tools](https://github.com/pschatzmann/arduino-audio-tools) library and implements a BaseConverter subclass that accepts convolution coefficients for left and right channel.
+This library uses the [Arduino Audio Tools](https://github.com/pschatzmann/arduino-audio-tools) library and implements a BaseConverter subclass that accepts convolution coefficients for left and right channel. There are two implementations:
+- FIRConverter which applies the left and right coefficients to each channel separately
+- FIRAddConverter which adds (or subtracts) left from right channel depending on the "direction"
 
 The convolution algoritm is implemented using the [dsps_fir_f32_ae32.S](https://github.com/espressif/esp-dsp/blob/master/modules/fir/float/dsps_fir_f32_ae32.S) from the [esp-dsp](https://github.com/espressif/esp-dsp) library
 
