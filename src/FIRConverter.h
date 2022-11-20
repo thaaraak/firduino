@@ -1,6 +1,6 @@
 #pragma once
 #include "AudioTools/AudioTypes.h"
-#include "AudioBasic/Vector.h"
+#include "AudioBasic/Collections.h"
 #include "AudioFilter/Filter.h"
 
 #ifdef __cplusplus
