@@ -111,18 +111,23 @@ class FIRConverter : public BaseConverter<T> {
     int count = size / channels / sizeof(T);
     T *sample = (T *)src;
 
-    for ( int i = 0 ; i < count ; i++ )
-    {
-    	srcLeft[i] = sample[i*2] * correction;
-    	srcRight[i] = sample[i*2+1];
-    }
-
+	getSrc( sample, count );
+	
     dsps_fir_f32_ae32(&firLeft, srcLeft, destLeft, count);
     dsps_fir_f32_ae32(&firRight, srcRight, destRight, count);
 
     write( sample, count );
 
     return size;
+  }
+
+  virtual void getSrc( T* sample, int count )
+  {
+    for ( int i = 0 ; i < count ; i++ )
+    {
+    	srcLeft[i] = sample[i*2] * correction;
+    	srcRight[i] = sample[i*2+1];
+    }
   }
 
   virtual void write( T* sample, int count )
@@ -177,6 +182,31 @@ public:
 	    	sample[i*2+1] = out;
 	    }
 	  }
+};
+
+
+template <typename T>
+class FIRSplitterConverter : public FIRConverter<T> {
+
+public:
+	  FIRSplitterConverter( float* coeffsLeft, float* coeffsRight, int firLen, bool src ) :
+	  	  FIRConverter<T>( coeffsLeft, coeffsRight, firLen )
+	  {
+		  this->srcIsLeft = src;
+	  }
+
+  virtual void getSrc( T* sample, int count )
+  {
+    for ( int i = 0 ; i < count ; i++ )
+    {
+		T src = srcIsLeft ? sample[i*2] : sample[i*2+1];
+    	this->srcLeft[i] = src;
+    	this->srcRight[i] = src;
+    }
+  }
+
+private:
+	bool srcIsLeft;
 
 };
 
