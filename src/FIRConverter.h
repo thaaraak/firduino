@@ -71,6 +71,8 @@ class FIRConverter : public BaseConverter<T> {
 	  this->correction = correction;
   }
 
+  float getCorrection() { return this->correction; }
+	  
   ~FIRConverter() {
   }
 
@@ -200,7 +202,7 @@ public:
     for ( int i = 0 ; i < count ; i++ )
     {
 		T src = srcIsLeft ? sample[i*2] : sample[i*2+1];
-    	this->srcLeft[i] = src;
+    	this->srcLeft[i] = src * this->getCorrection();
     	this->srcRight[i] = src;
     }
   }
